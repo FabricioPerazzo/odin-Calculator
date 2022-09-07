@@ -9,11 +9,16 @@ function operate(operator, x, y) {
     return operator(x, y);
 }
 
-const resultDisplay = document.querySelector(".result");
+// Variables to be used globally later
 
+const resultDisplay = document.querySelector(".result");
 const allButtonsArray = Array.from(document.querySelectorAll(".but"));
+let currentNumber = 0;
+let currentOperator = "none";
+
+// Functionnality of number buttons
+
 const numButtons = allButtonsArray.filter((button) => {return !isNaN(button.id);}).sort((b1, b2) => {return (parseInt(b1.id) - parseInt(b2.id));});
-const operationsButtons =  allButtonsArray.filter((button) => {return isNaN(button.id);});
 
 for (let i = 0; i < 10; i++){
     let numButton = numButtons[i];
@@ -31,4 +36,55 @@ for (let i = 0; i < 10; i++){
     })
 }
 
+// Functionnality of operation buttons
 
+const plusButton = document.querySelector("#Plus");
+const minusButton = document.querySelector("#Minus");
+const timesButton = document.querySelector("#Times");
+const divideButton = document.querySelector("#Divide");
+const operatorButtons = [plusButton, minusButton, timesButton, divideButton];
+
+operatorButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+        currentNumber = parseInt(resultDisplay.textContent);
+        currentOperator = button.id;
+        resultDisplay.textContent = "";
+        button.style.backgroundColor = "grey";
+    })
+})
+
+// Functionnality of equal button
+
+const equalButton = document.querySelector("#Equals");
+
+function getOp(str) {
+    if (str === "Plus") return add;
+    else if (str === "Minus") return substract;
+    else if (str === "Times") return multiply;
+    else if (str === "Divide") return divide;
+    else return "none";
+}
+
+equalButton.addEventListener("click", (event) => {
+    let op = getOp(currentOperator);
+    if (op !== "none") {
+        let res = operate(op, currentNumber, parseInt(resultDisplay.textContent));
+        resultDisplay.textContent = `${res}`;
+        currentNumber = res;
+        currentOperator = "none";
+        
+        operatorButtons.forEach((button) => {
+            button.style.backgroundColor = "white";
+        })
+    }
+})
+
+// Functionnality of clear button
+
+const clearButton = document.querySelector("#Clear");
+
+clearButton.addEventListener("click", (event) => {
+    resultDisplay.textContent = "0";
+    currentNumber = 0;
+    currentOperator = "none";
+})
