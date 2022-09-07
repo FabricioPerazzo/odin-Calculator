@@ -31,7 +31,7 @@ body , html {
 
 .result {
     color: black;
-    font-size: 60px;
+    font-size: 65px;
     padding: 25px;
 }
 
@@ -60,4 +60,5 @@ body , html {
     border-radius: 50%;
     font-size: 45px;
     font-weight: bold;
+    background-color: white;
 }
