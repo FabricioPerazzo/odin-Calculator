@@ -9,12 +9,21 @@ function operate(operator, x, y) {
     return operator(x, y);
 }
 
-// Variables to be used globally later
+// Variables and functions to be used globally later
 
 const resultDisplay = document.querySelector(".result");
 const allButtonsArray = Array.from(document.querySelectorAll(".but"));
 let currentNumber = 0;
 let currentOperator = "none";
+let isResult = false;
+
+function getOp(str) {
+    if (str === "Plus") return add;
+    else if (str === "Minus") return substract;
+    else if (str === "Times") return multiply;
+    else if (str === "Divide") return divide;
+    else return "none";
+}
 
 // Functionnality of number buttons
 
@@ -31,11 +40,13 @@ for (let i = 0; i < 10; i++){
             resultDisplay.textContent = `${i}`;
         }
         else {
-            if (currentOperator === "none") {
+            console.log(currentOperator);
+            if (currentOperator === "none" || !isResult) {
                 resultDisplay.textContent = resultDisplay.textContent + `${i}`;
             }
             else {
                 resultDisplay.textContent = `${i}`;
+                isResult = false;
             }
         }
     })
@@ -64,6 +75,7 @@ operatorButtons.forEach((button) => {
                 resultDisplay.textContent = res;
                 currentNumber = 0;
                 currentOperator = "none";
+                isResult = false;
             }
             else {
                 let res = operate(op, currentNumber, parseInt(resultDisplay.textContent));
@@ -74,6 +86,7 @@ operatorButtons.forEach((button) => {
                     button.style.backgroundColor = "white";
                 })
                 button.style.backgroundColor = "grey";
+                isResult = true;
             }
         }
     })
@@ -82,14 +95,6 @@ operatorButtons.forEach((button) => {
 // Functionnality of equal button
 
 const equalButton = document.querySelector("#Equals");
-
-function getOp(str) {
-    if (str === "Plus") return add;
-    else if (str === "Minus") return substract;
-    else if (str === "Times") return multiply;
-    else if (str === "Divide") return divide;
-    else return "none";
-}
 
 equalButton.addEventListener("click", (event) => {
     let op = getOp(currentOperator);
@@ -109,6 +114,7 @@ equalButton.addEventListener("click", (event) => {
         operatorButtons.forEach((button) => {
             button.style.backgroundColor = "white";
         })
+        isResult = false;
     }
 })
 
@@ -123,4 +129,5 @@ clearButton.addEventListener("click", (event) => {
     operatorButtons.forEach((button) => {
         button.style.backgroundColor = "white";
     })
+    isResult = false;
 })
