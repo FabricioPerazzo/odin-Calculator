@@ -68,9 +68,16 @@ function getOp(str) {
 equalButton.addEventListener("click", (event) => {
     let op = getOp(currentOperator);
     if (op !== "none") {
-        let res = operate(op, currentNumber, parseInt(resultDisplay.textContent));
-        resultDisplay.textContent = `${res}`;
-        currentNumber = res;
+        if (op === divide && parseInt(resultDisplay.textContent) === 0) {
+            let res = "Error: Division by 0";
+            resultDisplay.textContent = res;
+            currentNumber = 0;
+        }
+        else {
+            let res = operate(op, currentNumber, parseInt(resultDisplay.textContent));
+            resultDisplay.textContent = `${res}`;
+            currentNumber = res;
+        }
         currentOperator = "none";
         
         operatorButtons.forEach((button) => {
