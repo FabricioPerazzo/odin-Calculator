@@ -31,7 +31,12 @@ for (let i = 0; i < 10; i++){
             resultDisplay.textContent = `${i}`;
         }
         else {
-            resultDisplay.textContent = resultDisplay.textContent + `${i}`;
+            if (currentOperator === "none") {
+                resultDisplay.textContent = resultDisplay.textContent + `${i}`;
+            }
+            else {
+                resultDisplay.textContent = `${i}`;
+            }
         }
     })
 }
@@ -46,10 +51,31 @@ const operatorButtons = [plusButton, minusButton, timesButton, divideButton];
 
 operatorButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
-        currentNumber = parseInt(resultDisplay.textContent);
-        currentOperator = button.id;
-        resultDisplay.textContent = "";
-        button.style.backgroundColor = "grey";
+        if (currentOperator === "none") {
+            currentNumber = parseInt(resultDisplay.textContent);
+            currentOperator = button.id;
+            resultDisplay.textContent = "";
+            button.style.backgroundColor = "grey";
+        }
+        else {
+            let op = getOp(currentOperator);
+            if (op === divide && parseInt(resultDisplay.textContent) === 0) {
+                let res = "Error: Division by 0";
+                resultDisplay.textContent = res;
+                currentNumber = 0;
+                currentOperator = "none";
+            }
+            else {
+                let res = operate(op, currentNumber, parseInt(resultDisplay.textContent));
+                resultDisplay.textContent = `${res}`;
+                currentNumber = res;
+                currentOperator = button.id;
+                operatorButtons.forEach((button) => {
+                    button.style.backgroundColor = "white";
+                })
+                button.style.backgroundColor = "grey";
+            }
+        }
     })
 })
 
@@ -94,4 +120,7 @@ clearButton.addEventListener("click", (event) => {
     resultDisplay.textContent = "0";
     currentNumber = 0;
     currentOperator = "none";
+    operatorButtons.forEach((button) => {
+        button.style.backgroundColor = "white";
+    })
 })
