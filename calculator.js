@@ -105,7 +105,7 @@ equalButton.addEventListener("click", (event) => {
             currentNumber = 0;
         }
         else {
-            let res = operate(op, currentNumber, parseInt(resultDisplay.textContent));
+            let res = Math.round(operate(op, currentNumber, parseInt(resultDisplay.textContent)));
             resultDisplay.textContent = `${res}`;
             currentNumber = res;
         }

@@ -12,27 +12,27 @@ body , html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 550px;
-    height: 750px;
+    width: 30vw;
+    height: 75vh;
     background-color: black;
-    border-radius: 25px;
+    border-radius: 3vh;
 }
 
 .display {
     display: flex;
     justify-content: right;
     align-items: center;
-    margin-top: 50px;
-    width: 475px;
-    height: 125px;
+    margin-top: 5vh;
+    width: 25vw;
+    height: 12.5vh;
     background-color: white;
-    border-radius: 25px;
+    border-radius: 3vh;
 }
 
 .result {
     color: black;
-    font-size: 65px;
-    padding: 25px;
+    font-size: 7.5vh;
+    padding: 3vh;
 }
 
 .buttons {
@@ -40,25 +40,25 @@ body , html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 25px;
-    margin-top: 50px;
-    width: 475px;
-    height: 475px;
-    border-radius: 25px;
+    gap: 3vh;
+    margin-top: 5vh;
+    width: 48vh;
+    height: 48vh;
+    border-radius: 3vh;
 }
 
 .row {
     display: flex;
-    border-radius: 25px;
-    gap: 25px;
+    border-radius: 3vh;
+    gap: 1.35vw;
     padding: 0;
 }
 
 .but {
-    width: 100px;
-    height: 100px;
+    width: 10vh;
+    height: 10vh;
     border-radius: 50%;
-    font-size: 45px;
+    font-size: 5.5vh;
     font-weight: bold;
     background-color: white;
 }
